@@ -1,0 +1,60 @@
+import agenciaDeViajes.*
+
+describe "Calcular el valor final de un pack" {
+  test "pack nacional sin beneficios" {
+    const nacional = new PackNacional(
+      duracion = 5,
+      precioBase = 1000,
+      provinciaDestino = "Buenos Aires",
+      coordinador = new Coordinador(rol = guia)
+    )
+    assert.equals(1000, nacional.valorFinal())
+  }
+  
+  test "pack nacional con dos beneficios" {
+    const nacional = new PackNacional(
+      duracion = 5,
+      precioBase = 1000,
+      provinciaDestino = "Buenos Aires",
+      coordinador = new Coordinador(rol = guia),
+      beneficios = [
+        new Beneficio(
+          tipo = "Descuento en alojamiento",
+          costo = 200,
+          estaVigente = true
+        ),
+        new Beneficio(tipo = "Tour con bebida", costo = 100, estaVigente = true)
+      ]
+    )
+    assert.equals(1300, nacional.valorFinal())
+  }
+  
+  test "pack internacionales sin beneficios" {
+    const internacional = new PackInternacional(
+      duracion = 7,
+      precioBase = 2000,
+      paisDestino = "España",
+      coordinador = new Coordinador(rol = asistenteLogistico),
+      esLugarDeInteres = true,
+      beneficios = [
+        new Beneficio(
+          tipo = "Descuento en alojamiento",
+          costo = 200,
+          estaVigente = false
+        ),
+        new Beneficio(
+          tipo = "Tour con bebida",
+          costo = 100,
+          estaVigente = false
+        )
+      ]
+    )
+    assert.equals(2400, internacional.valorFinal())
+  }
+}
+
+describe "Coordinador altamente calificado" {
+  test "tener mas de 20 viajes" {
+    
+  }
+}
